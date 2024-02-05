@@ -4,17 +4,18 @@
   class="col-sm-6"
   style="    flex: 0 0 50%;
 max-width: 50%;
-margin-left: 431px;
-margin-top: -181px;  text-align: -webkit-center;"
+margin-left: 530px;
+margin-top: -400px;  text-align: -webkit-center;"
 >
-  <h1>Apply for leave here <%=student.name%></h1>
+  <h1>Apply for leave here, <%=student.name%></h1>
   <form action="/student/<%=student._id%>/apply" method="POST">
     <div class="form-group">
       <input
         type="text"
-        placeholder="subject"
+        placeholder="Leave Type"
         name="leave[subject]"
         class="form-control"
+        style="background-position: 10px center; padding-left: 20px;"
       />
     </div>
     <div class="form-group">
