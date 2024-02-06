@@ -3,14 +3,14 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
-<h1 style="margin-top: 61px; font-size: 20px;">Welcome, <%=hod.name%></h1>
+<h1 style="margin-top: 50px; font-size: 50px; ">Welcome, <%=hod.name%></h1>
 <div class="container">
   <div
     class="row"
-    style="    margin-left: -36px;
-  margin-right: 899px;"
+    style="    margin-left: -100px;
+  margin-right: 400px;"
   >
-    <div class="col-sm-3" style="list-style-type: none;">
+    <div class="col-sm-3" style="list-style-type: none;  margin-left: -200px;">
       <li>
         <a
           href="/hod/home"
@@ -18,7 +18,7 @@
           title="home page"
           data-placement="left"
           class="btn btn-info btn-lg"
-          style="width: 210px;margin-top: 10px;"
+          style="width: 300px;margin-top: 10px;"
           >Home</a
         >
       </li>
@@ -29,7 +29,7 @@
           title="Click to see your profile"
           data-placement="left"
           class="btn btn-info btn-lg"
-          style="width: 210px;margin-top: 10px;"
+          style="width: 300px;margin-top: 10px;"
           >Profile</a
         >
       </li>
@@ -37,8 +37,24 @@
         <a
           href="/hod/<%=hod._id%>/leave"
           class="btn btn-info btn-lg"
-          style="width: 210px;margin-top: 10px;"
-          >Leave</a
+          style="width: 300px; margin-top: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+          >Manage Leave</a
+        >
+      </li>
+      <li>
+        <a
+          href="/hod/<%=hod._id%>/hodtypes"
+          class="btn btn-info btn-lg"
+          style="width: 300px;margin-top: 10px;"
+          >Leave Types</a
+        >
+      </li>
+      <li>
+        <a
+          href="/hod/<%=hod._id%>/empinfo"
+          class="btn btn-info btn-lg"
+          style="width: 300px; margin-top: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+          >Employee Info</a
         >
       </li>
     </div>
