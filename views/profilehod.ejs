@@ -1,20 +1,97 @@
-<% include ./partial/header %><% include ./partial/hodfunction %>
+<% include ./partial/header %>
+<% include ./partial/hodfunction %>
 
-    <div class="col-sm-6" style="    flex: 0 0 50%;
-    max-width: 50%;
-    margin-left: 431px;
-    margin-top: -165px; text-align: -webkit-center;">
-      <div class="thumbnail">
-        <img style="height:150px;width:150px;border-radius: 100%" src="<%=hod.image%>" />
-        <h1><strong>Name:</strong> <%=hod.name%></h1>
-        <h4><strong>Type:</strong><%=hod.type%></h4>
-
-        <h4>Username: <%=hod.username%></h4>
-        <h4>Department:<%=hod.department%></h4>
-      </div>
-      <a class="btn btn-warning" href="/hod/<%=hod._id%>/edit">Edit</a>
+<div class="row">
+    <div class="col-sm-6" style="flex: 0 0 50%; max-width: 50%; margin-left: 431px; margin-top: -400px; display: flex; align-items: center;">
+        <div class="thumbnail">
+            <img style="height:150px;width:150px;border-radius: 100%" src="<%=hod.image%>" />
+            <div style="display: flex; flex-direction: column;">
+                <div style="display: flex;">
+                    <div style="width: 170px; font-weight: bold;">Name:</div>
+                    <div><%=hod.name%></div>
+                </div>
+                <div style="display: flex; font-weight: bold;">
+                    <div style="width: 170px;">Type:</div>
+                    <div><%=hod.type%></div>
+                </div>
+                <div style="display: flex; font-weight: bold;">
+                    <div style="width: 170px;">Email ID:</div>
+                    <div><%=hod.username%></div>
+                </div>
+                <div style="display: flex; font-weight: bold;">
+                    <div style="width: 170px;">Department:</div>
+                    <div><%=hod.department%></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="col-sm-6" style="margin-left: 431px; margin-top: -40px">
+        <a class="btn btn-warning" href="/hod/<%=hod._id%>/edit">Edit</a>
+    </div>
 </div>
+
+<style>
+  /* Define the animation */
+  @keyframes slideIn {
+      from {
+          transform: translateX(100%);
+      }
+      to {
+          transform: translateX(0);
+      }
+  }
+
+  @keyframes slideOut {
+      from {
+          transform: translateX(0);
+      }
+      to {
+          transform: translateX(100%);
+      }
+  }
+
+  /* Apply styles to the image container */
+  .animated-img-container {
+      position: fixed;
+      top: 100%; /* Adjust the top position */
+      right: 100%; /* Adjust the right position */
+      width: 100px; /* Adjust the width of the container */
+      height: 100px; /* Adjust the height of the container */
+      z-index: -1; /* Place the container behind other elements */
+  }
+
+  /* Apply styles to the background image */
+  .animated-img {
+      width: 100%; /* Ensure the image fills the container */
+      height: 100%; /* Ensure the image fills the container */
+      background-image: url('https://images.shiksha.com/mediadata/images/1590413167phpeqm8V9.jpeg');
+      background-size: cover; /* Ensure the image covers the container */
+      background-position: center; /* Center the image */
+      animation-duration: 0.5s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+  }
+</style>
+
+<!-- HTML structure for the image container -->
+<div class="animated-img-container">
+  <!-- Image link to toggle animation -->
+  <a href="#" onclick="toggleAnimation()">
+      <!-- Empty div for the background image -->
+      <div class="animated-img"></div>
+  </a>
+</div>
+
+<!-- JavaScript to toggle animation -->
+<script>
+  function toggleAnimation() {
+      const img = document.querySelector('.animated-img');
+      if (img.style.animationName === 'slideOut') {
+          img.style.animationName = 'slideIn';
+      } else {
+          img.style.animationName = 'slideOut';
+      }
+  }
+</script>
 
 <% include ./partial/footer %>

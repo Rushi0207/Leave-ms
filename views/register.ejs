@@ -1,4 +1,13 @@
-<% include ./partial/header %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  <% include ./partial/header %>
 <div class="lop"style="border:1px solid pink;">
     <% if (locals.errors) { %>
       <div class="alert alert-danger" role="alert"style="">
@@ -9,31 +18,36 @@
       </div>
       <% } %>
 </div>
+<div style="padding: 20px;">
 <div
   class="container"
-  style=" position: relative;
-border-radius: 5px;
+  style=" margin-top: 50px; 
+  position: relative;
+border-radius: 10px;
 background-color: #f2f2f2;
 padding: 60px 0 30px 0;
 width: 40%;
+z-index: 10;
+box-shadow: 10px  10px 5px 0px rgba(0, 0, 0, 0.75);
 "
 >
         <form action="/student/register" method="POST" style="margin: 0 auto;">
           <div class="row">
             <div class="col">
-              <h2 style="    text-align: center;">
+              <h2 style="text-align: center;">
                 Register
               </h2>
               <div class="form-group form-inline">
                 <label for="name" style="width: 200px;
                 display: inline-block;
                 text-align: right;
+                padding: 10px
                 ">Name</label>
                 <input
                   class="form-control"
                   type="text"
                   id="name"
-                  placeholder="name"
+                  placeholder="Name"
                   name="name"
                   style="float: left;;
                   text-align: left;
@@ -45,40 +59,35 @@ width: 40%;
               display: inline-block;
               text-align: right;
               ">
-                <input type="radio" id="r1" name="type" value="student" />
-                Student
-                <input type="radio" id="r2" name="type" value="hod" />
+                <input type="radio" id="r1" name="type" value="Professor" />
+                Professor
+                <input type="radio" id="r2" name="type" value="HOD" />
                 HOD
-                <input type="radio" id="r3" name="type" value="warden" />
-                Warden
+                <input type="radio" id="r3" name="type" value="Staff" />
+                Staff
               </div>
 
               <!-- id -->
               <div class="form-group form-inline">
-                  <label for="username" style="width: 200px;
+                  <label for="emailid" style="width: 200px;
                   display: inline-block;
-                  text-align: right;
-                  ">Username</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="username"
-                  placeholder="username"
-                  name="username"
-                />
+                  text-align: right; padding: 10px;
+                  ">Email ID</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email">
               </div>
               <!-- password -->
               <div class="form-group form-inline">
                   <label for="password"style="width: 200px;
                   display: inline-block;
                   text-align: right;
+                  padding: 10px
                   ">Password</label>
                 <input
                   class="form-control"
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="password"
+                  placeholder="Password"
                 />
               </div>
               <!-- confirm password -->
@@ -86,13 +95,14 @@ width: 40%;
                   <label for="cpassword"style="width: 200px;
                   display: inline-block;
                   text-align: right;
+                  padding: 10px
                   ">Confirm Password</label>
                 <input
                   class="form-control"
                   type="password"
                   id="cpassword"
                   name="password2"
-                  placeholder="Confirm password"
+                  placeholder="Confirm Password"
                 />
               </div>
               <!-- Department -->
@@ -100,30 +110,32 @@ width: 40%;
                   <label for="department"style="width: 200px;
                   display: inline-block;
                   text-align: right;
+                  padding: 10px
                   ">Department</label>
                 <!-- <label for="department">Department</label> -->
                 <input
                   class="form-control"
                   
                   type="text"
-                  placeholder="Department"
+                  placeholder="department"
                   id="department"
                   name="department"
                 />
               </div>
               <!-- hostel -->
               <div class="form-group form-inline">
-                  <label for="hostel"style="width: 200px;
+                  <label for="mobileno"style="width: 200px;
                   display: inline-block;
                   text-align: right;
-                  ">Hostel</label>
+                  padding: 10px
+                  ">Mobile no.</label>
                 <!-- <label for="hostel">Hostel</label> -->
                 <input
                   class="form-control"
                   type="text"
                   name="hostel"
                   id="hostel"
-                  placeholder="Hostel"
+                  placeholder="Mobile no."
                 />
               </div>
               <!-- image -->
@@ -131,12 +143,13 @@ width: 40%;
                   <label for="img"style="width: 200px;
                   display: inline-block;
                   text-align: right;
+                  padding: 10px
                   ">Image Url</label>
                 <input
                   class="form-control"
                   type="text"
                   id="img"
-                  placeholder="img url"
+                  placeholder="Img url"
                   name="image"
                 />
               </div>
@@ -154,10 +167,13 @@ width: 40%;
           </div>
           <!-- name -->
         </form>
-
         <a href="/">Back</a>
       </div>
+</div>
     </div>
   </div>
   <% include ./partial/footer %>
 </div>
+
+</body>
+</html>
