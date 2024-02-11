@@ -13,6 +13,7 @@ var express = require("express"),
   Warden = require("./models/warden"),
   Hod = require("./models/hod"),
   Leave = require("./models/leave");
+  Professor =require("./models/professor");
 
 var moment = require("moment");
 
@@ -127,7 +128,7 @@ app.get("/register", (req, res) => {
 //registration logic
 app.post("/student/register", (req, res) => {
   var type = req.body.type;
-  if (type == "student") {
+  if (type == "Professor") {
     var name = req.body.name;
     var username = req.body.username;
     var password = req.body.password;
@@ -152,7 +153,7 @@ app.post("/student/register", (req, res) => {
         errors: errors
       });
     } else {
-      var newStudent = new Student({
+      var newProfessor = new Professor({
         name: name,
         username: username,
         password: password,
@@ -161,9 +162,9 @@ app.post("/student/register", (req, res) => {
         type: type,
         image: image
       });
-      Student.createStudent(newStudent, (err, student) => {
+      Professor.createProfessor(newProfessor, (err, professor) => {
         if (err) throw err;
-        console.log(student);
+        console.log(professor);
       });
       req.flash("success", "you are registered successfully,now you can login");
 
@@ -349,8 +350,7 @@ app.get("/student/login", (req, res) => {
   res.render("login");
 });
 
-app.post(
-  "/student/login",
+app.post("/student/login",
   passport.authenticate("student", {
     successRedirect: "/student/home",
     failureRedirect: "/student/login",
