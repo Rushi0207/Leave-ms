@@ -1,4 +1,4 @@
-<% include ./partial/header %> <% include ./partial/studfunction %>
+<% include ./partial/header %> <% include ./partial/proffunction %>
 
 <div
   class="col-sm-6"
@@ -7,8 +7,8 @@ max-width: 50%;
 margin-left: 530px;
 margin-top: -400px;  text-align: -webkit-center;"
 >
-  <h1>Apply for leave here, <%=student.name%></h1>
-  <form action="/student/<%=student._id%>/apply" method="POST">
+  <h1>Apply for leave here, <%=professor.name%></h1>
+  <form action="/professor/<%=professor._id%>/apply" method="POST">
     <div class="form-group">
       <input
         type="text"

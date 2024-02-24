@@ -1,7 +1,7 @@
 var express = require("express"),
   app = express(),
   mongoose = require("mongoose"),
-  expressvalidator = require("express-validator"),
+  ev = require("express-validator"), 
   session = require("express-session"),
   methodOverride = require("method-override"),
   bodyparser = require("body-parser"),
@@ -9,7 +9,7 @@ var express = require("express"),
   LocalStrategy = require("passport-local").Strategy,
   passportLocalMongoose = require("passport-local-mongoose"),
   flash = require("connect-flash"),
-  Student = require("./models/student"),
+  // professor = require("./models/professor"),
   Warden = require("./models/warden"),
   Hod = require("./models/hod"),
   Leave = require("./models/leave");
@@ -37,7 +37,7 @@ app.use(methodOverride("_method"));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
-app.use(expressvalidator());
+app.use(ev());
 
 //passport config
 app.use(
@@ -49,7 +49,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-// passport.use(new LocalStrategy(Student.authenticate()));
+// passport.use(new LocalStrategy(professor.authenticate()));
 // passport.use(
 //   new LocalStrategy(function(username, password, done) {
 //     User.findOne({ username: username }, function(err, user) {
@@ -67,10 +67,10 @@ app.use(passport.session());
 //   })
 // );
 
-// passport.serializeUser(Student.serializeUser());
-// passport.deserializeUser(Student.deserializeUser());
+// passport.serializeUser(professor.serializeUser());
+// passport.deserializeUser(professor.deserializeUser());
 // app.use(
-//   expressvalidator({
+//   ev({
 //     errorFormatter: function(param, msg, value) {
 //       var namespace = param.split("."),
 //         root = namespace.shift(),
@@ -102,14 +102,14 @@ function ensureAuthenticated(req, res, next) {
     return next();
   } else {
     req.flash("error", "You need to be logged in");
-    res.redirect("/student/login");
+    res.redirect("/professor/login");
   }
 }
 app.get("/", (req, res) => {
   res.render("home");
 });
 
-//login logic for Student
+//login logic for professor
 
 //login logic for Hod
 
@@ -126,39 +126,41 @@ app.get("/register", (req, res) => {
   res.render("register");
 });
 //registration logic
-app.post("/student/register", (req, res) => {
+app.post("/professor/register", (req, res) => {
   var type = req.body.type;
   if (type == "Professor") {
     var name = req.body.name;
-    var username = req.body.username;
+    var emailId = req.body.emailId;
     var password = req.body.password;
     var password2 = req.body.password2;
-    var hostel = req.body.hostel;
     var department = req.body.department;
+    var mobileno = req.body.mobileno;
     var image = req.body.image;
     //validation
+    
     req.checkBody("name", "name is required").notEmpty();
-    req.checkBody("username", "Username is required").notEmpty();
-    req.checkBody("hostel", "hostel is required").notEmpty();
+    req.checkBody("emailId", "email ID is required").notEmpty();
+    req.checkBody("mobileno", "mobile no. is required").notEmpty();
     req.checkBody("department", "department is required").notEmpty();
     req.checkBody("password", "Password is required").notEmpty();
-    req.checkBody("password2", "Password dont match").equals(req.body.password);
+    req.checkBody("password2", "Password don't match").equals(req.body.password);
 
     var errors = req.validationErrors();
     if (errors) {
       // req.session.errors = errors;
       // req.session.success = false;
       console.log("errors: " + errors);
+      console.log("Request Body: ", req.body);
       res.render("register", {
         errors: errors
       });
     } else {
       var newProfessor = new Professor({
         name: name,
-        username: username,
+        emailId: emailId,
         password: password,
         department: department,
-        hostel: hostel,
+        mobileno: mobileno,
         type: type,
         image: image
       });
@@ -168,7 +170,7 @@ app.post("/student/register", (req, res) => {
       });
       req.flash("success", "you are registered successfully,now you can login");
 
-      res.redirect("/student/login");
+      res.redirect("/professor/login");
     }
   } else if (type == "hod") {
     var name = req.body.name;
@@ -247,20 +249,20 @@ app.post("/student/register", (req, res) => {
 
 //stratergies
 passport.use(
-  "student",
-  new LocalStrategy((username, password, done) => {
-    Student.getUserByUsername(username, (err, student) => {
+  "professor",
+  new LocalStrategy((emailId, password, done) => {
+    Professor.getUserByEmail(emailId, (err, professor) => {
       if (err) throw err;
-      if (!student) {
+      if (!professor) {
         return done(null, false, { message: "Unknown User" });
       }
-      Student.comparePassword(
+      Professor.comparePassword(
         password,
-        student.password,
+        professor.password,
         (err, passwordFound) => {
           if (err) throw err;
           if (passwordFound) {
-            return done(null, student);
+            return done(null, professor);
           } else {
             return done(null, false, { message: "Invalid Password" });
           }
@@ -325,9 +327,9 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(obj, done) {
   switch (obj.type) {
-    case "student":
-      Student.getUserById(obj.id, function(err, student) {
-        done(err, student);
+    case "professor":
+      Professor.getUserById(obj.id, function(err, professor) {
+        done(err, professor);
       });
       break;
     case "hod":
@@ -346,92 +348,92 @@ passport.deserializeUser(function(obj, done) {
   }
 });
 
-app.get("/student/login", (req, res) => {
+app.get("/professor/login", (req, res) => {
   res.render("login");
 });
 
-app.post("/student/login",
-  passport.authenticate("student", {
-    successRedirect: "/student/home",
-    failureRedirect: "/student/login",
+app.post("/professor/login",
+  passport.authenticate("professor", {
+    successRedirect: "/professor/home",
+    failureRedirect: "/professor/login",
     failureFlash: true
   }),
   (req, res) => {
-    // console.log(student);
-    res.redirect("/student/home");
+    // console.log(professor);
+    res.redirect("/professor/home");
   }
 );
 
-app.get("/student/home", ensureAuthenticated, (req, res) => {
-  var student = req.user.username;
-  console.log(student);
-  Student.findOne({ username: req.user.username })
+app.get("/professor/home", ensureAuthenticated, (req, res) => {
+  var professor = req.user.emailId;
+  console.log(professor);
+  professor.findOne({ emailId: req.user.emailId })
     .populate("leaves")
-    .exec((err, student) => {
-      if (err || !student) {
-        req.flash("error", "student not found");
+    .exec((err, professor) => {
+      if (err || !professor) {
+        req.flash("error", "professor not found");
         res.redirect("back");
         console.log("err");
       } else {
-        res.render("homestud", {
-          student: student,
+        res.render("homeprof", {
+          professor: professor,
           moment: moment
         });
       }
     });
 });
-app.get("/student/:id", ensureAuthenticated, (req, res) => {
+app.get("/professor/:id", ensureAuthenticated, (req, res) => {
   console.log(req.params.id);
-  Student.findById(req.params.id)
+  professor.findById(req.params.id)
     .populate("leaves")
-    .exec((err, foundStudent) => {
-      if (err || !foundStudent) {
-        req.flash("error", "Student not found");
+    .exec((err, foundprofessor) => {
+      if (err || !foundprofessor) {
+        req.flash("error", "professor not found");
         res.redirect("back");
       } else {
-        res.render("profilestud", { student: foundStudent });
+        res.render("profileprof", { professor: foundprofessor });
       }
     });
 });
-app.get("/student/:id/edit", ensureAuthenticated, (req, res) => {
-  Student.findById(req.params.id, (err, foundStudent) => {
-    res.render("editS", { student: foundStudent });
+app.get("/professor/:id/edit", ensureAuthenticated, (req, res) => {
+  professor.findById(req.params.id, (err, foundprofessor) => {
+    res.render("editS", { professor: foundprofessor });
   });
 });
-app.put("/student/:id", ensureAuthenticated, (req, res) => {
-  console.log(req.body.student);
-  Student.findByIdAndUpdate(
+app.put("/professor/:id", ensureAuthenticated, (req, res) => {
+  console.log(req.body.professor);
+  professor.findByIdAndUpdate(
     req.params.id,
-    req.body.student,
-    (err, updatedStudent) => {
+    req.body.professor,
+    (err, updatedprofessor) => {
       if (err) {
         req.flash("error", err.message);
         res.redirect("back");
       } else {
         req.flash("success", "Succesfully updated");
-        res.redirect("/student/" + req.params.id);
+        res.redirect("/professor/" + req.params.id);
       }
     }
   );
 });
 
-app.get("/student/:id/apply", ensureAuthenticated, (req, res) => {
-  Student.findById(req.params.id, (err, foundStud) => {
+app.get("/professor/:id/apply", ensureAuthenticated, (req, res) => {
+  professor.findById(req.params.id, (err, foundProf) => {
     if (err) {
       console.log(err);
       res.redirect("back");
     } else {
-      res.render("leaveApply", { student: foundStud });
+      res.render("leaveApply", { professor: foundProf });
     }
   });
 });
 
-app.post("/student/:id/apply", (req, res) => {
-  Student.findById(req.params.id)
+app.post("/professor/:id/apply", (req, res) => {
+  professor.findById(req.params.id)
     .populate("leaves")
-    .exec((err, student) => {
+    .exec((err, professor) => {
       if (err) {
-        res.redirect("/student/home");
+        res.redirect("/professor/home");
       } else {
         date = new Date(req.body.leave.from);
         todate = new Date(req.body.leave.to);
@@ -460,33 +462,33 @@ app.post("/student/:id/apply", (req, res) => {
             res.redirect("back");
             console.log(err);
           } else {
-            newLeave.stud.id = req.user._id;
-            newLeave.stud.username = req.user.username;
+            newLeave.Prof.id = req.user._id;
+            newLeave.Prof.username = req.user.username;
             console.log("leave is applied by--" + req.user.username);
 
             // console.log(newLeave.from);
             newLeave.save();
 
-            student.leaves.push(newLeave);
+            professor.leaves.push(newLeave);
 
-            student.save();
+            professor.save();
             req.flash("success", "Successfully applied for leave");
-            res.render("homestud", { student: student, moment: moment });
+            res.render("homeprof", { professor: professor, moment: moment });
           }
         });
       }
     });
 });
-app.get("/student/:id/track", (req, res) => {
-  Student.findById(req.params.id)
+app.get("/professor/:id/track", (req, res) => {
+  professor.findById(req.params.id)
     .populate("leaves")
-    .exec((err, foundStud) => {
+    .exec((err, foundProf) => {
       if (err) {
-        req.flash("error", "No student with requested id");
+        req.flash("error", "No professor with requested id");
         res.redirect("back");
       } else {
         
-        res.render("trackLeave", { student: foundStud, moment: moment });
+        res.render("trackLeave", { professor: foundProf, moment: moment });
       }
     });
 });
@@ -551,16 +553,16 @@ app.get("/hod/:id/leave", (req, res) => {
       res.redirect("back");
     } else {
       // console.log(hodFound);
-      Student.find({ department: hodFound.department })
+      professor.find({ department: hodFound.department })
         .populate("leaves")
-        .exec((err, students) => {
+        .exec((err, professors) => {
           if (err) {
-            req.flash("error", "student not found with your department");
+            req.flash("error", "professor not found with your department");
             res.redirect("back");
           } else {
-            // students.forEach(function(student) {
-            //   if (student.leaves.length > 0) {
-            // student.leaves.forEach(function(leave) {
+            // professors.forEach(function(professor) {
+            //   if (professor.leaves.length > 0) {
+            // professor.leaves.forEach(function(leave) {
             //   console.log(leave);
             //   console.log("////////////");
             // Leave.findById(leave, (err, leaveFound) => {
@@ -571,7 +573,7 @@ app.get("/hod/:id/leave", (req, res) => {
             //     // console.log(leaveFound.subject);
             res.render("hodLeaveSign", {
               hod: hodFound,
-              students: students,
+              professors: professors,
               // leave: leaveFound,
               moment: moment
             });
@@ -579,11 +581,11 @@ app.get("/hod/:id/leave", (req, res) => {
             // });
             // });
             // }
-            // Leave.find({ username: student.username }, (err, leave) => {
+            // Leave.find({ username: professor.username }, (err, leave) => {
             //   console.log(leave.username);
             // });
             // });
-            // console.log(students);
+            // console.log(professors);
           }
         });
     }
@@ -591,21 +593,21 @@ app.get("/hod/:id/leave", (req, res) => {
   });
 });
 
-app.get("/hod/:id/leave/:stud_id/info", (req, res) => {
+app.get("/hod/:id/leave/:Prof_id/info", (req, res) => {
   Hod.findById(req.params.id).exec((err, hodFound) => {
     if (err) {
       req.flash("error", "hod not found with requested id");
       res.redirect("back");
     } else {
-      Student.findById(req.params.stud_id)
+      professor.findById(req.params.Prof_id)
         .populate("leaves")
-        .exec((err, foundStudent) => {
+        .exec((err, foundprofessor) => {
           if (err) {
-            req.flash("error", "student not found with this id");
+            req.flash("error", "professor not found with this id");
             res.redirect("back");
           } else {
-            res.render("moreinfostud", {
-              student: foundStudent,
+            res.render("moreinfoProf", {
+              professor: foundprofessor,
               hod: hodFound,
               moment: moment
             });
@@ -615,21 +617,21 @@ app.get("/hod/:id/leave/:stud_id/info", (req, res) => {
   });
 });
 
-app.post("/hod/:id/leave/:stud_id/info", (req, res) => {
+app.post("/hod/:id/leave/:Prof_id/info", (req, res) => {
   Hod.findById(req.params.id).exec((err, hodFound) => {
     if (err) {
       req.flash("error", "hod not found with requested id");
       res.redirect("back");
     } else {
-      Student.findById(req.params.stud_id)
+      professor.findById(req.params.Prof_id)
         .populate("leaves")
-        .exec((err, foundStudent) => {
+        .exec((err, foundprofessor) => {
           if (err) {
-            req.flash("error", "student not found with this id");
+            req.flash("error", "professor not found with this id");
             res.redirect("back");
           } else {
             if (req.body.action === "Approve") {
-              foundStudent.leaves.forEach(function(leave) {
+              foundprofessor.leaves.forEach(function(leave) {
                 if (leave.status === "pending") {
                   leave.status = "approved";
                   leave.approved = true;
@@ -638,7 +640,7 @@ app.post("/hod/:id/leave/:stud_id/info", (req, res) => {
               });
             } else {
               console.log("u denied");
-              foundStudent.leaves.forEach(function(leave) {
+              foundprofessor.leaves.forEach(function(leave) {
                 if (leave.status === "pending") {
                   leave.status = "denied";
                   leave.denied = true;
@@ -646,8 +648,8 @@ app.post("/hod/:id/leave/:stud_id/info", (req, res) => {
                 }
               });
             }
-            res.render("moreinfostud", {
-              student: foundStudent,
+            res.render("moreinfoProf", {
+              professor: foundprofessor,
               hod: hodFound,
               moment: moment
             });
@@ -725,16 +727,16 @@ app.get("/warden/:id/leave", (req, res) => {
       res.redirect("back");
     } else {
       // console.log(hodFound);
-      Student.find({ hostel: wardenFound.hostel })
+      professor.find({ hostel: wardenFound.hostel })
         .populate("leaves")
-        .exec((err, students) => {
+        .exec((err, professors) => {
           if (err) {
-            req.flash("error", "student not found with your department");
+            req.flash("error", "professor not found with your department");
             res.redirect("back");
           } else {
             res.render("wardenLeaveSign", {
               warden: wardenFound,
-              students: students,
+              professors: professors,
 
               moment: moment
             });
@@ -743,21 +745,21 @@ app.get("/warden/:id/leave", (req, res) => {
     }
   });
 });
-app.get("/warden/:id/leave/:stud_id/info", (req, res) => {
+app.get("/warden/:id/leave/:Prof_id/info", (req, res) => {
   Warden.findById(req.params.id).exec((err, wardenFound) => {
     if (err) {
       req.flash("error", "warden not found with requested id");
       res.redirect("back");
     } else {
-      Student.findById(req.params.stud_id)
+      professor.findById(req.params.Prof_id)
         .populate("leaves")
-        .exec((err, foundStudent) => {
+        .exec((err, foundprofessor) => {
           if (err) {
-            req.flash("error", "student not found with this id");
+            req.flash("error", "professor not found with this id");
             res.redirect("back");
           } else {
-            res.render("Wardenmoreinfostud", {
-              student: foundStudent,
+            res.render("WardenmoreinfoProf", {
+              professor: foundprofessor,
               warden: wardenFound,
               moment: moment
             });
@@ -767,21 +769,21 @@ app.get("/warden/:id/leave/:stud_id/info", (req, res) => {
   });
 });
 
-app.post("/warden/:id/leave/:stud_id/info", (req, res) => {
+app.post("/warden/:id/leave/:Prof_id/info", (req, res) => {
   Warden.findById(req.params.id).exec((err, wardenFound) => {
     if (err) {
       req.flash("error", "warden not found with requested id");
       res.redirect("back");
     } else {
-      Student.findById(req.params.stud_id)
+      professor.findById(req.params.Prof_id)
         .populate("leaves")
-        .exec((err, foundStudent) => {
+        .exec((err, foundprofessor) => {
           if (err) {
-            req.flash("error", "student not found with this id");
+            req.flash("error", "professor not found with this id");
             res.redirect("back");
           } else {
             if (req.body.action === "Approve") {
-              foundStudent.leaves.forEach(function(leave) {
+              foundprofessor.leaves.forEach(function(leave) {
                 if (leave.wardenstatus === "pending") {
                   leave.wardenstatus = "approved";
 
@@ -790,7 +792,7 @@ app.post("/warden/:id/leave/:stud_id/info", (req, res) => {
               });
             } else {
               console.log("u denied");
-              foundStudent.leaves.forEach(function(leave) {
+              foundprofessor.leaves.forEach(function(leave) {
                 if (leave.wardenstatus === "pending") {
                   leave.wardenstatus = "denied";
 
@@ -798,8 +800,8 @@ app.post("/warden/:id/leave/:stud_id/info", (req, res) => {
                 }
               });
             }
-            res.render("Wardenmoreinfostud", {
-              student: foundStudent,
+            res.render("WardenmoreinfoProf", {
+              professor: foundprofessor,
               warden: wardenFound,
               moment: moment
             });
@@ -808,7 +810,7 @@ app.post("/warden/:id/leave/:stud_id/info", (req, res) => {
     }
   });
 });
-//logout for student
+//logout for professor
 
 app.get("/logout", (req, res) => {
   req.logout();
