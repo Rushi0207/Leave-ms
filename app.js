@@ -1,7 +1,7 @@
 var express = require("express"),
   app = express(),
   mongoose = require("mongoose"),
-  ev = require("express-validator"), 
+  expressValidator = require("express-validator"), 
   session = require("express-session"),
   methodOverride = require("method-override"),
   bodyparser = require("body-parser"),
@@ -37,7 +37,7 @@ app.use(methodOverride("_method"));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
-app.use(ev());
+app.use(expressValidator());
 
 //passport config
 app.use(
