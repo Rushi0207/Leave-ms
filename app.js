@@ -37,7 +37,7 @@ app.use(methodOverride("_method"));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
-app.use(expressValidator);
+app.use(expressValidator());
 
 //passport config
 app.use(
