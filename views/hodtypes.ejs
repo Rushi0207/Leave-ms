@@ -26,10 +26,10 @@
       <th></th>
       
     </tr>
-    <%students.forEach(function(student){%> <% if(student.leaves.length>0){%>
+    <%professors.forEach(function(professor){%> <% if(professor.leaves.length>0){%>
     <tr>
-      <th><%=student.name%></th>
-      <%student.leaves.forEach(function(leave){%>
+      <th><%=professor.name%></th>
+      <%professor.leaves.forEach(function(leave){%>
       <td><%=moment(leave.from).format('DD/MM/YYYY')%></td>
       <td><%=moment(leave.to).format('DD/MM/YYYY')%></td>
       <td><%=leave.days%></td>
@@ -38,7 +38,7 @@
       <td>
         <%if(leave.status==="pending"){%>
         <a
-          href="/hod/<%=hod.id%>/leave/<%=student.id%>/info"
+          href="/hod/<%=hod.id%>/leave/<%=professor.id%>/info"
           class="btn btn-block btn-success"
           >more info</a
         >

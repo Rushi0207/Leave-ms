@@ -6,26 +6,26 @@
     margin-left: 431px;
     margin-top: -251px;  text-align: -webkit-center;"
 >
-  <form action="/hod/<%=hod.id%>/leave/<%=student.id%>/info" method="POST">
+  <form action="/hod/<%=hod.id%>/leave/<%=professor.id%>/info" method="POST">
     <div class="container-fluid bg-3 text-center">
-      <h1 style="margin-top: 40px;"><%=student.name %></h1>
+      <h1 style="margin-top: 40px;"><%=professor.name %></h1>
       <br />
       <div class="row">
         <div class="col-sm-4">
           <img
             style="height:150px;width:150px;border-radius: 100%"
-            src="<%=student.image%>"
+            src="<%=professor.image%>"
             alt="image"
           />
         </div>
-        <%student.leaves.forEach(function(leave){%>
+        <%professor.leaves.forEach(function(leave){%>
         <div class="col-sm-4" style="width: 100%">
           <h3><strong> Subject:</strong><%=leave.subject %></h3>
           <h3>Status:<%=leave.status %></h3>
           <h3>From:<%=moment(leave.to).format('DD/MM/YYYY') %></h3>
           <h3>To:<%=moment(leave.from).format('DD/MM/YYYY') %></h3>
           <h3><%=leave.days%></h3>
-          <h3>Department:<%=student.department %></h3>
+          <h3>Department:<%=professor.department %></h3>
           <div class="col-sm-6">
             <input
               type="submit"
