@@ -1,30 +1,18 @@
 <% include ./partial/header %>
 <% include ./partial/hodfunction %>
-<div class="col-sm-6" style="flex: 0 0 50%; max-width: 50%; margin-left: 600px; margin-top: -20%; display: flex; align-items: center;">
-  <div class="thumbnail">
-      <img style="height:150px;width:150px;border-radius: 100%; border-color: black; border-width: thick;" src="<%=hod.image%>" />
-      <div style="display: flex; flex-direction: column;">
-          <div style="display: flex; font-weight: bold">
-              <div style="width: 170px;">Name:</div>
-              <div><%=hod.name%></div>
-          </div>
-          <div style="display: flex; font-weight: bold;">
-              <div style="width: 170px;">Type:</div>
-              <div><%=hod.type%></div>
-          </div>
-          <div style="display: flex; font-weight: bold;">
-              <div style="width: 170px;">Email ID:</div>
-              <div><%=hod.username%></div>
-          </div>
-          <div style="display: flex; font-weight: bold;">
-              <div style="width: 170px;">Department:</div>
-              <div><%=hod.department%></div>
-          </div>
+    <div class="col-sm-6" style="    flex: 0 0 50%;
+    max-width: 50%;
+    margin-left: 431px;
+    margin-top: -165px; text-align: -webkit-center;">
+      <div class="thumbnail">
+        <img style="height:150px;width:150px;border-radius: 100%" src="<%=hod.image%>" />
+        <h1><strong>Name:</strong> <%=hod.name%></h1>
+        <h4><strong>Type:</strong><%=hod.type%></h4>
+
+        <h4>Username: <%=hod.username%></h4>
+        <h4>Department:<%=hod.department%></h4>
       </div>
-  </div>
-</div>
-
-
+    </div>
 
     <% include ./partial/footer %>
   </div>

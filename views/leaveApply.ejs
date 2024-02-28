@@ -1,23 +1,24 @@
-<% include ./partial/header %> <% include ./partial/proffunction %>
+<% include ./partial/header %> <% include ./partial/studfunction %>
 
 <div
   class="col-sm-6"
   style="    flex: 0 0 50%;
 max-width: 50%;
-margin-left: 530px;
-margin-top: -400px;  text-align: -webkit-center;"
+margin-left: 431px;
+margin-top: -181px;  text-align: -webkit-center;"
 >
-  <h1>Apply for leave here, <%=professor.name%></h1>
-  <form action="/professor/<%=professor._id%>/apply" method="POST">
+  <h1>Apply for leave here <%=student.name%></h1>
+  <form action="/student/<%=student._id%>/apply" method="POST">
     <div class="form-group">
-      <input
-        type="text"
-        placeholder="Leave Type"
-        name="leave[subject]"
-        class="form-control"
-        style="background-position: 10px center; padding-left: 20px;"
-      />
+      <select name="leave[subject]" class="form-control">
+        <option value="" selected disabled>Choose Leave Type</option>
+        <option value="annual">Annual Leave</option>
+        <option value="sick">Sick Leave</option>
+        <option value="maternity">Maternity Leave</option>
+        <!-- Add more options as needed -->
+      </select>
     </div>
+    
     <div class="form-group">
       <label for="from">From:</label>
       <input

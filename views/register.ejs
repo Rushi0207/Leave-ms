@@ -1,4 +1,4 @@
-<%- include('./partial/header') %>
+<% include ./partial/header %>
 <div class="lop"style="border:1px solid pink;">
     <% if (locals.errors) { %>
       <div class="alert alert-danger" role="alert"style="">
@@ -17,8 +17,13 @@ background-color: #f2f2f2;
 padding: 60px 0 30px 0;
 width: 40%;
 
-">
-        <form action="/professor/register" method="post" id="registrationForm"  style="margin: 0 auto; font-family:Arial;">
+"
+
+>
+
+        
+
+        <form action="/professor/register" method="POST" style="margin: 0 auto;">
           <div class="row">
             <div class="col">
               <h2 style="    text-align: center;">
@@ -33,7 +38,7 @@ width: 40%;
                   class="form-control"
                   type="text"
                   id="name"
-                  placeholder="Name"
+                  placeholder="name"
                   name="name"
                   style="float: left;;
                   text-align: left;
@@ -45,25 +50,25 @@ width: 40%;
               display: inline-block;
               text-align: right;
               ">
-                <input type="radio" id="r1" name="type" value="professor" />
+                <input type="radio" id="r1" name="type" value="student" />
                 Professor
                 <input type="radio" id="r2" name="type" value="hod" />
                 HOD
                 <input type="radio" id="r3" name="type" value="warden" />
-                Admin
+                Warden
               </div>
 
               <!-- id -->
               <div class="form-group form-inline">
-                  <label for="emailId" style="width: 200px;
+                  <label for="username" style="width: 200px;
                   display: inline-block;
                   text-align: right;
                   ">Email ID</label>
                 <input
                   class="form-control"
                   type="text"
-                  id="emailId"
-                  placeholder="Email id"
+                  id="username"
+                  placeholder="email id"
                   name="username"
                 />
               </div>
@@ -78,7 +83,7 @@ width: 40%;
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="Password"
+                  placeholder="password"
                 />
               </div>
               <!-- confirm password -->
@@ -90,7 +95,7 @@ width: 40%;
                 <input
                   class="form-control"
                   type="password"
-                  id="password2"
+                  id="cpassword"
                   name="password2"
                   placeholder="Confirm password"
                 />
@@ -121,8 +126,8 @@ width: 40%;
                 <input
                   class="form-control"
                   type="text"
-                  name="mobileno"
-                  id="mobileno"
+                  name="hostel"
+                  id="hostel"
                   placeholder="Mobile no."
                 />
               </div>
@@ -135,7 +140,7 @@ width: 40%;
                 <input
                   class="form-control"
                   type="text"
-                  id="image"
+                  id="img"
                   placeholder="img url"
                   name="image"
                 />
@@ -144,8 +149,6 @@ width: 40%;
               <div class="form-group">
                 <button
                   type="submit"
-                  
-                 
                   class="btn btn-lg btn-primary btn-default btn-block"
                   style=" color:#fff;"
                 >
@@ -156,43 +159,10 @@ width: 40%;
           </div>
           <!-- name -->
         </form>
-        <!-- <script>
-          async function registerUser() {
-            const name = document.getElementById('name').value;
-            const emailId = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const password2 = document.getElementById('cpassword').value;
-            const department = document.getElementById('department').value;
-            const mobileno = document.getElementById('mobileno').value;
-            const image = document.getElementById('img').value;
-      
-            try {
-              const response = await fetch('/professor/register', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify( {name,emailId,password,password2,mobileno,image} ),
-              });
-      
-              const data = await response.json();
-      
-              if (response.ok) {
-                alert('User registered successfully!');
-                // Optionally, redirect to a new page or perform other actions
-              } else {
-                alert(`Error: ${data.error}`);
-              }
-            } catch (error) {
-              console.error('Error during registration:', error);
-              alert('Internal Server Error');
-              
-            }
-          }
-        </script> -->
+
         <a href="/">Back</a>
       </div>
     </div>
   </div>
-  <%- include('./partial/footer') %>
+  <% include ./partial/footer %>
 </div>

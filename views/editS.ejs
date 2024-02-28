@@ -12,10 +12,10 @@ width: 40%;
 
     
     
-      <form action="/professor/<%=professor._id%>?_method=PUT" method="POST" style="margin-top: 20px;">
+      <form action="/student/<%=student._id%>?_method=PUT" method="POST" style="margin-top: 20px;">
         <div class="row">
           <div class="col">
-              <h1 style="text-align:center;">Edit Profile <%= professor.name%></h1>
+              <h1 style="text-align:center;">Edit Profile <%= student.name%></h1>
               <div class=" form-group form-inline">
                   <label for="name" style="width: 200px;
                   display: inline-block;
@@ -25,21 +25,21 @@ width: 40%;
                     class="form-control"
                     type="text"
                     id="name"
-                    value="<%= professor.name%>"
-                    name="professor[name]"
+                    value="<%= student.name%>"
+                    name="student[name]"
                   />
                 </div>
                 <div class=" form-group form-inline">
-                    <label for="emailId" style="width: 200px;
+                    <label for="username" style="width: 200px;
                     display: inline-block;
                     text-align: right;
-                    ">Email ID</label>
+                    ">Username</label>
                   <input
                     class="form-control"
                     type="text"
-                    id="emailId"
-                    value="<%= professor.emailId%>"
-                    name="professor[emailId]"
+                    id="username"
+                    value="<%= student.username%>"
+                    name="student[username]"
                   />
                 </div>
                 <div class=" form-group form-inline">
@@ -51,21 +51,21 @@ width: 40%;
                     class="form-control"
                     type="text"
                     id="department"
-                    value="<%= professor.department%>"
-                    name="professor[department]"
+                    value="<%= student.department%>"
+                    name="student[department]"
                   />
                 </div>
                 <div class=" form-group form-inline">
-                    <label for="mobileno" style="width: 200px;
+                    <label for="hostel" style="width: 200px;
                     display: inline-block;
                     text-align: right;
-                    ">Mobile no.</label>
+                    ">Hostel</label>
                   <input
                     class="form-control"
                     type="text"
-                    id="mobileno"
-                    value="<%= professor.mobileno%>"
-                    name="professor[mobileno]"
+                    id="hostel"
+                    value="<%= student.hostel%>"
+                    name="student[hostel]"
                   />
                 </div>
                 <div class=" form-group form-inline">
@@ -77,8 +77,8 @@ width: 40%;
                     class="form-control"
                     type="text"
                     id="url"
-                    value="<%= professor.image%>"
-                    name="professor[image]"
+                    value="<%= student.image%>"
+                    name="student[image]"
                   />
                 </div>
                 <div class="form-group">
@@ -88,7 +88,7 @@ width: 40%;
         </div>
         
       </form>
-      <a href="/professor/<%= professor.id%>">Back</a>
+      <a href="/student/<%= student.id%>">Back</a>
     </div>
   </div>
 </div>

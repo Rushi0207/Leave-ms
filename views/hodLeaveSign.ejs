@@ -4,18 +4,17 @@
   style="    flex: 0 0 50%;
     max-width: 60%;
     margin-left: 431px;
-    margin-top: -400px;  text-align: -webkit-center;"
+    margin-top: -165px;  text-align: -webkit-center;"
 >
   <table
     class="content-table"
-    style="margin: 50px auto;min-width:1000px; box-shadow: 0 0 20px rgba(0,0,0,0.15); padding: 100px; "
+    style="margin: 50px auto;min-width:400px; box-shadow: 0 0 20px rgba(0,0,0,0.15);"
   >
-  
     <tr
       style="background-color: rgb(9, 1, 19); border-radius: 5px 5px 0 0;overflow: hidden;  color: #ffffff;text-align: left; font-weight: bold;"
     >
       <th>
-        Prof. name
+        Student Name
       </th>
       <th>
         From
@@ -24,12 +23,11 @@
       <th>Days</th>
       <th>Status</th>
       <th></th>
-      
     </tr>
-    <%professors.forEach(function(professor){%> <% if(professor.leaves.length>0){%>
+    <%students.forEach(function(student){%> <% if(student.leaves.length>0){%>
     <tr>
-      <th><%=professor.name%></th>
-      <%professor.leaves.forEach(function(leave){%>
+      <th><%=student.name%></th>
+      <%student.leaves.forEach(function(leave){%>
       <td><%=moment(leave.from).format('DD/MM/YYYY')%></td>
       <td><%=moment(leave.to).format('DD/MM/YYYY')%></td>
       <td><%=leave.days%></td>
@@ -38,7 +36,7 @@
       <td>
         <%if(leave.status==="pending"){%>
         <a
-          href="/hod/<%=hod.id%>/leave/<%=professor.id%>/info"
+          href="/hod/<%=hod.id%>/leave/<%=student.id%>/info"
           class="btn btn-block btn-success"
           >more info</a
         >
