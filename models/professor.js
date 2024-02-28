@@ -16,7 +16,7 @@ var professorSchema=new mongoose.Schema({
     }]
 });
 professorSchema.plugin(passportLocalMongoose);
-var Professor=(module.exports = mongoose.model("Professor",professorSchema));
+var Professor = (module.exports = mongoose.model("Professor",professorSchema));
 
 module.exports.createProfessor = function(newProfessor,callback) {
     bcrypt.genSalt(10,function(err,salt){

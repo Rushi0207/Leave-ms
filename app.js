@@ -13,11 +13,13 @@ var express = require("express"),
   Warden = require("./models/warden"),
   Hod = require("./models/hod"),
   Leave = require("./models/leave");
-  Professor =require("./models/professor");
+  Professor = require("./models/professor");
+  
+  
 
 var moment = require("moment");
-
-var url =process.env.DATABASEURL|| "mongodb+srv://rushikeshphadtare2003:wgMbLiIHa8zBXji4@cluster0.yknf6j4.mongodb.net/LeaveApp";
+// process.env.DATABASEURL
+var url ="mongodb://localhost:27017" || "mongodb+srv://rushikeshphadtare2003:wgMbLiIHa8zBXji4@cluster0.yknf6j4.mongodb.net/LeaveApp";
 mongoose
   .connect(url, {
     useNewUrlParser: true,
@@ -31,6 +33,8 @@ mongoose
   .catch(err => {
     console.log("Error:", err.message);
   });
+  const User = require('./models/professor'); 
+  
 
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
@@ -128,9 +132,11 @@ app.get("/register", (req, res) => {
 //registration logic
 app.post("/professor/register", (req, res) => {
   var type = req.body.type;
+
   if (type == "Professor") {
     var name = req.body.name;
     var emailId = req.body.emailId;
+    
     var password = req.body.password;
     var password2 = req.body.password2;
     var department = req.body.department;
@@ -155,6 +161,7 @@ app.post("/professor/register", (req, res) => {
         errors: errors
       });
     } else {
+      console.log("hey we are working");
       var newProfessor = new Professor({
         name: name,
         emailId: emailId,
@@ -818,7 +825,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-const port = process.env.PORT || 3005;
+const port = process.env.PORT || 3006;
 app.listen(port, () => {
   console.log(`Server started at port http://localhost:${port}`);
 });
