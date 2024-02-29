@@ -408,7 +408,7 @@ app.put("/student/:id", ensureAuthenticated, (req, res) => {
         req.flash("error", err.message);
         res.redirect("back");
       } else {
-        req.flash("success", "Succesfully updated");
+        req.flash("success", "Succesfully Updated");
         res.redirect("/student/" + req.params.id);
       }
     }

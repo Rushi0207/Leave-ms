@@ -4,37 +4,81 @@
 class="col-sm-6"
 style="    flex: 0 0 50%;
 max-width: 60%;
-margin-left: 431px;
-margin-top: -181px;  text-align: -webkit-center;"
+margin-left: 600px;
+margin-top: -350px;  text-align: -webkit-center;
+font-style: arial"
 >
-      <div class="thumbnail">
-        <img
-          style="height:150px;width:150px;border-radius: 100%"
-          src="<%=student.image%>"
-        />
-        <h1><strong>Name:</strong> <%=student.name%></h1>
-        <h4><strong>Type:</strong>Professor</h4>
+<style>
+  .profile-container {
+    display: flex;
+    align-items: center;
+    margin-left: -150px;
+  }
 
-        <h4>Email ID: <%=student.username%></h4>
-        <h4>Department:<%=student.department%></h4>
-        <h4>Mobile No.: <%=student.hostel%></h4>
-      </div>
-    </div>
+  .thumbnail {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+
+  .thumbnail img {
+    height: 160px;
+    width: 160px;
+    border-radius: 100%;
+    margin-right: 10px;
+  }
+
+  .profile-info {
+    text-align: left;
+    font-family: 'Arial', sans-serif;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .profile-info h4 strong {
+    font-weight: bold;
+  }
+
+  .profile-info h4 {
+    font-weight: normal;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="profile-container">
+  <div class="thumbnail">
+    <img src="<%=student.image%>" alt="Student Image">
+  </div>
+
+  <div class="profile-info">
+    <h4><strong>Name:</strong> <%=student.name%></h4>
+    <h4><strong>Type:</strong> Professor</h4>
+    <h4><strong>Email ID:</strong> <%=student.username%></h4>
+    <h4><strong>Department:</strong> <%=student.department%></h4>
+    <h4><strong>Mobile No.:</strong> <%=student.hostel%></h4>
+</div>
+</div>
 
     <div class="container" >
       <table class="content-table"
-      style="margin: 50px auto;min-width:400px;width: 90%; box-shadow: 0 0 20px rgba(0,0,0,0.15);">
-        <tr  style="background-color: rgb(9, 1, 19); border-radius: 5px 5px 0 0;overflow: hidden;  color: #ffffff;text-align: left; font-weight: bold;"
+      style="margin: 10px auto;min-width:400px;width: 90%; box-shadow: 0 0 20px rgba(0,0,0,0.15); margin-left: -150px;">
+        <tr  style="background-color: #4caf50; border-radius: 5px 5px 0 0;overflow: hidden;  color: #ffffff;text-align: left; font-weight: bold;"
         >
           <th>
-            Subject
+            LEAVE  TYPE
           </th>
           <th>
-            From
+            FROM  DATE
           </th>
-          <th>To</th>
-          <th>Days</th>
-          <th>Status</th>
+          <th>TO  DATE</th>
+          <th>DAYS</th>
+          <th>STATUS</th>
         </tr>
         <%student.leaves.forEach(function(leave){%>
 

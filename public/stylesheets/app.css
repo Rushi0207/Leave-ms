@@ -112,6 +112,7 @@ li a:hover {
 }
 .navbar-nav .nav-item {
   color: #fff;
+  min-width: 150px;
 }
 
 .navbar-dark .navbar-nav .nav-link {

@@ -3,14 +3,17 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
-<h1 style="margin-top: 61px; font-size: 20px;">Welcome, <%=student.name%></h1>
+<h1 style="margin-top: 61px; font-size: 30px; margin-left: 60px;">Welcome, <%=student.name%></h1>
 <div class="container">
   <div
     class="row"
-    style="   margin-left: -36px;
-  margin-right: 899px;"
+    style="   margin-left: -100px;
+  margin-right: 899px; 
+  "
+  
+  
   >
-    <div class="col-sm-3" style="list-style-type: none;">
+    <div class="col-sm-3" style="list-style-type: none; button-color:  #4caf50;">
       <li>
         <a
           href="/student/home"
@@ -19,7 +22,7 @@
           data-placement="left"
           class="btn btn-info btn-lg"
           style="width: 210px;margin-top: 10px;"
-          >Home</a
+          >HOME</a
         >
       </li>
       <li>
@@ -30,7 +33,7 @@
           data-placement="left"
           class="btn btn-info btn-lg"
           style="width: 210px;margin-top: 10px;"
-          >Profile</a
+          >PROFILE</a
         >
       </li>
       <li>
@@ -38,7 +41,7 @@
           href="/student/<%=student._id%>/apply"
           class="btn btn-info btn-lg"
           style="width: 210px;margin-top: 10px;"
-          >Apply For Leave</a
+          >LEAVE APPLY</a
         >
       </li>
       <li>
@@ -46,7 +49,15 @@
           href="/student/<%=student._id%>/track"
           class="btn btn-info btn-lg"
           style="width: 210px;margin-top: 10px;"
-          >Track Leave</a
+          >LEAVE TRACK</a
+        >
+      </li>
+      <li>
+        <a
+          href="/student/<%=student._id%>/track"
+          class="btn btn-info btn-lg"
+          style="width: 210px;margin-top: 10px;"
+          >LEAVE TYPES</a
         >
       </li>
     </div>
