@@ -3,10 +3,13 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
-<h1 style="margin-top: 61px; font-size: 20px;">Welcome, <%=warden.name%></h1>
+<h1 style="margin-top: 61px; font-size: 30px; font-style:arial;">Welcome, <%=warden.name%></h1>
 <div class="container">
-  <div class="row">
-    <div class="col-sm-3" style="list-style-type: none;">
+  <div class="row"
+  style="   margin-left: -100px;
+  margin-right: 899px; font-style:arial;"
+  >
+    <div class="col-sm-3" style="list-style-type: none; button-color: #4caf50">
       <li>
         <a
           href="/warden/home"
@@ -14,8 +17,8 @@
           title="home page"
           data-placement="left"
           class="btn btn-primary btn-lg"
-          style="width: 210px;margin-top: 10px;background-color: black"
-          >Home</a
+          style="width: 210px;margin-top: 10px;background-color: #4caf50"
+          >HOME</a
         >
       </li>
       <li>
@@ -25,24 +28,24 @@
           title="Click to see your profile"
           data-placement="left"
           class="btn btn-primary btn-lg"
-          style="width: 210px;margin-top: 10px;"
-          >Profile</a
+          style="width: 210px;margin-top: 10px; background-color: #4caf50"
+          >PROFILE</a
         >
       </li>
       <li>
         <a
           href="/warden/<%=warden._id%>/leave"
           class="btn btn-success btn-lg"
-          style="width: 210px;margin-top: 10px;"
-          >Leave</a
+          style="width: 210px;margin-top: 10px; background-color: #4caf50"
+          >APPLY LEAVE</a
         >
       </li>
       <li>
         <a
           href="#"
           class="btn btn-info btn-lg"
-          style="width: 210px;margin-top: 10px;"
-          >Track Leave</a
+          style="width: 210px;margin-top: 10px; background-color: #4caf50"
+          >TRACK LEAVE</a
         >
       </li>
     </div>

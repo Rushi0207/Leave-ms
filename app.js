@@ -16,7 +16,7 @@ var express = require("express"),
 
 var moment = require("moment");
 
-var url =process.env.DATABASEURL|| "mongodb+srv://rushikeshphadtare2003:wgMbLiIHa8zBXji4@cluster0.yknf6j4.mongodb.net/";
+var url =process.env.DATABASEURL|| "mongodb+srv://rushikeshphadtare2003:wgMbLiIHa8zBXji4@cluster0.yknf6j4.mongodb.net/LeaveApp";
 mongoose
   .connect(url, {
     useNewUrlParser: true,
