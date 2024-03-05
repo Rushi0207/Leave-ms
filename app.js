@@ -48,7 +48,44 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+// passport.use(new LocalStrategy(Student.authenticate()));
+// passport.use(
+//   new LocalStrategy(function(username, password, done) {
+//     User.findOne({ username: username }, function(err, user) {
+//       if (err) {
+//         return done(err);
+//       }
+//       if (!user) {
+//         return done(null, false);
+//       }
+//       if (!user.verifyPassword(password)) {
+//         return done(null, false);
+//       }
+//       return done(null, user);
+//     });
+//   })
+// );
 
+// passport.serializeUser(Student.serializeUser());
+// passport.deserializeUser(Student.deserializeUser());
+// app.use(
+//   expressvalidator({
+//     errorFormatter: function(param, msg, value) {
+//       var namespace = param.split("."),
+//         root = namespace.shift(),
+//         formParam = root;
+
+//       while (namespace.length) {
+//         formParam += "[" + namespace.shift() + "]";
+//       }
+//       return {
+//         param: formParam,
+//         msg: msg,
+//         value: value
+//       };
+//     }
+//   })
+// );
 app.use(flash());
 app.use((req, res, next) => {
   //   res.locals.currentUser = req.user;
