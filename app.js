@@ -487,6 +487,22 @@ app.get("/student/:id/track", (req, res) => {
       }
     });
 });
+
+app.get("/student/:id/types", (req, res) => {
+  Student.findById(req.params.id)
+    .populate("types")
+    .exec((err, foundStud) => {
+      if (err) {
+        req.flash("error", "No student with requested id");
+        res.redirect("back");
+      } else {
+        
+        res.render("typesLeave", { student: foundStud, moment: moment });
+      }
+    });
+});
+
+
 app.get("/hod/login", (req, res) => {
   res.render("hodlogin");
 });
