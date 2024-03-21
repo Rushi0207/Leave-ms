@@ -609,7 +609,7 @@ app.get("/hod/:id/leave/:stud_id/info", (req, res) => {
     if (err) {
       req.flash("error", "hod not found with requested id");
       res.redirect("back");
-    } else {
+     } else {
       Student.findById(req.params.stud_id)
         .populate("leaves")
         .exec((err, foundStudent) => {
@@ -812,7 +812,7 @@ app.post("/warden/:id/leave/:stud_id/info", (req, res) => {
               });
             }
             res.render("Wardenmoreinfostud", {
-              student: foundStudent,
+               student: foundStudent,
               warden: wardenFound,
               moment: moment
             });
@@ -834,26 +834,3 @@ app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
 });
 
-
-
-
-// Require necessary modules
-const express = require('express');
-const app = express();
-
-// Set up a route to render the button
-app.get('/', (req, res) => {
-    res.render('index', { buttonText: 'Click Me' });
-});
-
-// Set up EJS as the view engine
-app.set('view engine', 'ejs');
-
-// Set the views directory
-app.set('views', __dirname + '/views');
-
-// Listen on a specific port
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-});
