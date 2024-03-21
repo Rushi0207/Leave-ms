@@ -502,7 +502,7 @@ app.post(
     res.redirect("/hod/home");
   }
 );
-app.get("/hod/home", ensureAuthenticated, (req, res) => {
+app.get("/hod/home", ensureAuthenticated, (req, res) = > {
   Hod.find({}, (err, hod) => {
     if (err) {
       console.log("err");
@@ -816,4 +816,28 @@ app.get("/logout", (req, res) => {
 const port = process.env.PORT || 3005;
 app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
+});
+
+
+
+
+// Require necessary modules
+const express = require('express');
+const app = express();
+
+// Set up a route to render the button
+app.get('/', (req, res) => {
+    res.render('index', { buttonText: 'Click Me' });
+});
+
+// Set up EJS as the view engine
+app.set('view engine', 'ejs');
+
+// Set the views directory
+app.set('views', __dirname + '/views');
+
+// Listen on a specific port
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
 });
