@@ -2,15 +2,62 @@
 
     <div class="col-sm-6" style="    flex: 0 0 50%;
     max-width: 50%;
-    margin-left: 431px;
-    margin-top: -165px; text-align: -webkit-center;">
-      <div class="thumbnail">
-        <img style="height:150px;width:150px;border-radius: 100%" src="<%=hod.image%>" />
-        <h1><strong>Name:</strong> <%=hod.name%></h1>
-        <h4><strong>Type:</strong><%=hod.type%></h4>
+    margin-left: 600px;
+    margin-top: 100px; text-align: -webkit-center;">
+    
+    <style>
+      .profile-container {
+        display: flex;
+        align-items: center;
+        margin-left: -150px;
+        margin-top: -300px;
+      }
+    
+      .thumbnail {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        margin-top: 20px;
+      }
+    
+      .thumbnail img {
+        height: 160px;
+        width: 160px;
+        border-radius: 100%;
+        margin-right: 10px;
+      }
+    
+      .profile-info {
+        text-align: left;
+        font-family: 'Arial', sans-serif;
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+      }
+    
+      .profile-info h4 strong {
+        font-weight: bold;
+      }
+    
+      .profile-info h4 {
+        font-weight: normal;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+    </style>
 
-        <h4>Username: <%=hod.username%></h4>
-        <h4>Department:<%=hod.department%></h4>
+    <div class="profile-container">
+      <div class="thumbnail">
+        <img src="<%=hod.image%>" alt="HOD Image">
+      </div>
+    
+      <div class="profile-info">
+        <h4><strong>Name:</strong> <%=hod.name%></h4>
+        <h4><strong>Type:</strong> <%=hod.type%></h4>
+        <h4><strong>Email ID:</strong> <%=hod.username%></h4>
+        <h4><strong>Department:</strong> <%=hod.department%></h4>
+        
       </div>
       <a class="btn btn-warning" href="/hod/<%=hod._id%>/edit">Edit</a>
     </div>
