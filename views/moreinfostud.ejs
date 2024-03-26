@@ -18,14 +18,7 @@
             alt="image"
           />
         </div>
-        <%student.leaves.forEach(function(leave){%>
-        <div class="col-sm-4" style="width: 100%">
-          <h3><strong> Subject:</strong><%=leave.subject %></h3>
-          <h3>Status:<%=leave.status %></h3>
-          <h3>From:<%=moment(leave.to).format('DD/MM/YYYY') %></h3>
-          <h3>To:<%=moment(leave.from).format('DD/MM/YYYY') %></h3>
-          <h3><%=leave.days%></h3>
-          <h3>Department:<%=student.department %></h3>
+        
           <div class="col-sm-6">
             <input
               type="submit"
@@ -40,10 +33,7 @@
               value="Deny"
             />
           </div>
-        </div>
-
-        <%})%>
-      </div>
+     
     </div>
   </form>
   <% include ./partial/footer %>
