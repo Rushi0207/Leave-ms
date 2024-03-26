@@ -24,16 +24,24 @@
         <td><%= leave.status %></td>
         <td>
           <% if (leave.status === "pending") { %>
-          <div class="col-sm-6" action="/hod/<%=hod.id%>/leave/<%=student.id%>">
-            <form method="post" action="/hod/<%= hod.id %>/leave/<%= student.id %>">
-              <input type="hidden" name="action" value="approve">
-              <button type="submit" class="btn btn-block btn-success" style="width: fit-content;">APPROVE</button>
+            <div class="col-sm-6">
+              <form method="post" action="/hod/<%=hod.id%>/leave/<%=student.id%>/info">
+              <input
+                type="submit"
+                class="btn btn-block btn-success"
+                style="width:fit-content"
+                name="action"
+                value="Approve"
+              />
+              <input
+                type="submit"
+                class="btn btn-block btn-danger"
+                style="width:fit-content"
+                name="action"
+                value="Deny"
+              />
             </form>
-            <form method="post" action="/hod/<%= hod.id %>/leave/<%= student.id %>">
-              <input type="hidden" name="action" value="deny">
-              <button type="submit" class="btn btn-block btn-danger" style="width: fit-content;">DENY</button>
-            </form>
-          </div>
+            </div>
           <% } %>
         </td>
       </tr>
