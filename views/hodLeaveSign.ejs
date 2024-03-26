@@ -1,7 +1,7 @@
 <% include ./partial/header %>
 <% include ./partial/hodfunction %>
-<div class="col-sm-6" style="flex: 0 0 50%; max-width: 60%; margin-left: 431px; margin-top: -165px; text-align: center;">
-  <table class="content-table" style="margin: 50px auto; min-width: 400px; box-shadow: 0 0 20px rgba(0,0,0,0.15);">
+<div class="col-sm-6" style="flex: 0 0 50%; max-width: 60%; margin-left: 431px; margin-top: -250px; text-align: center;">
+  <table class="content-table" style="margin: 50px auto; min-width: 400px; box-shadow: 0 0 20px rgba(0,0,0,0.15);font-style: arial;">
     <thead>
       <tr style="background-color: rgb(9, 1, 19); color: #ffffff; font-weight: bold;">
         <th>Professor Name</th>
@@ -24,21 +24,15 @@
         <td><%= leave.status %></td>
         <td>
           <% if (leave.status === "pending") { %>
-          <div class="col-sm-6" action="/hod/<%=hod.id%>/leave/<%=student.id%>/info">
-            <input
-              type="submit"
-              class="btn btn-block btn-success"
-              name="action"
-              value="Approve"
-              style="width: fit-content;"
-            />
-            <input
-              type="submit"
-              class="btn btn-block btn-danger"
-              name="action"
-              value="Deny"
-              style="width: fit-content;"
-            />
+          <div class="col-sm-6" action="/hod/<%=hod.id%>/leave/<%=student.id%>">
+            <form method="post" action="/hod/<%= hod.id %>/leave/<%= student.id %>">
+              <input type="hidden" name="action" value="approve">
+              <button type="submit" class="btn btn-block btn-success" style="width: fit-content;">APPROVE</button>
+            </form>
+            <form method="post" action="/hod/<%= hod.id %>/leave/<%= student.id %>">
+              <input type="hidden" name="action" value="deny">
+              <button type="submit" class="btn btn-block btn-danger" style="width: fit-content;">DENY</button>
+            </form>
           </div>
           <% } %>
         </td>

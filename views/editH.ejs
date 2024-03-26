@@ -4,21 +4,21 @@
   style=" position: relative;
 border-radius: 5px;
 background-color: #f2f2f2;
-padding: 20px 0 30px 0;
+padding: 100px 0 30px 0;
 width: 40%;
-
+font-style:arial;
 "
 >
   
       <form action="/hod/<%=hod._id%>?_method=PUT" method="POST">
         <div class="row">
           <div class="col">
-            <h1 style="text-align:center;">Edit Profile <%= hod.name%></h1>
+            <h1 style="text-align:center;">EDIT PROFILE <%= hod.name%></h1>
             <div class="form-group form-inline">
                 <label for="name" style="width: 200px;
                 display: inline-block;
                 text-align: right;
-                ">Name</label>
+                ">NAME</label>
               <input
                 class="form-control"
                 type="text"
@@ -31,7 +31,7 @@ width: 40%;
                 <label for="username" style="width: 200px;
                 display: inline-block;
                 text-align: right;
-                ">Username</label>
+                ">EMAIL ID</label>
               <input
                 class="form-control"
                 type="text"
@@ -44,7 +44,7 @@ width: 40%;
                 <label for="department" style="width: 200px;
                 display: inline-block;
                 text-align: right;
-                ">Department</label>
+                ">DEPARTMENT</label>
               <input
                 class="form-control"
                 type="text"
@@ -58,7 +58,7 @@ width: 40%;
                 <label for="url" style="width: 200px;
                 display: inline-block;
                 text-align: right;
-                ">Image Url</label>
+                ">IMAGE URL</label>
               <input
                 class="form-control"
                 type="text"
