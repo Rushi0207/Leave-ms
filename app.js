@@ -13,6 +13,7 @@ var express = require("express"),
   Warden = require("./models/warden"),
   Hod = require("./models/hod"),
   Leave = require("./models/leave");
+  //nodemailer=require('nodemailer');
 
 var moment = require("moment");
 
@@ -438,18 +439,37 @@ app.post("/student/:id/apply", (req, res) => {
         todate = new Date(req.body.leave.to);
         year = date.getFullYear();
         month = date.getMonth() + 1;
+        month2= todate.getMonth()+1;
         dt = date.getDate();
         todt = todate.getDate();
-
-        if (dt < 10) {
-          dt = "0" + dt;
+        const mnt=[31,28,31,30,31,30,31,31,30,31,30,31];
+        let count=0;
+        if(month==month2){
+          count=(todt-dt)+1;
         }
-        if (month < 10) {
-          month = "0" + month;
+        else{
+          let countmonth=month2-month;
+          for(let i=month-1;i<month2;i++){
+            if(i==month-1){
+              count=mnt[i]-dt+1;
+              continue;
+            }else if(i==month2-1){
+              count=count+todt;
+            } else{
+            count=count+mnt[i];
+            }
+            
+          }
+          
         }
-        if()
+        // if (dt < 10) {
+        //   dt = "0" + dt;
+        // }
+        // if (month < 10) {
+        //   month = "0" + month;
+        // }
         console.log(todt - dt);
-        req.body.leave.days = todt - dt;
+        req.body.leave.days = count;
         console.log(year + "-" + month + "-" + dt);
         console.log(req.body.leave);
         Leave.create(req.body.leave, (err, newLeave) => {
@@ -466,6 +486,28 @@ app.post("/student/:id/apply", (req, res) => {
             student.leaves.push(newLeave);
 
             student.save();
+            // var transporter = nodemailer.createTransport({
+            //   service: 'gmail',
+            //   auth: {
+            //     user: 'rushikeshphadtare2003@gmail.com',
+            //     pass: 'RushiPhadtare@1807'
+            //   }
+            // });
+            
+            // var mailOptions = {
+            //   from: 'rushikeshphadtare2003@gmail.com',
+            //   to: 'kaspedanekar@gmail.com',
+            //   subject: 'Regarding leave status',
+            //   text: 'Your leave is applied succesfully.'
+            // };
+            
+            // transporter.sendMail(mailOptions, function(error, info){
+            //   if (error) {
+            //     console.log(error);
+            //   } else {
+            //     console.log('Email sent: ' + info.response);
+            //   }
+            // });
             req.flash("success", "Successfully applied for leave");
             res.render("homestud", { student: student, moment: moment });
           }
@@ -658,6 +700,7 @@ app.post("/hod/:id/leave/:stud_id/info", (req, res) => {
                 }
               });
             }
+            res.redirect("back");
           }
         });
     }
