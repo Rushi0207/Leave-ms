@@ -430,25 +430,28 @@ app.post("/student/:id/apply", (req, res) => {
   Student.findById(req.params.id)
     .populate("leaves")
     .exec((err, student) => {
+
       if (err) {
         res.redirect("/student/home");
       } else {
-        const fromDate = new Date(req.body.leave.from);
-        const toDate = new Date(req.body.leave.to);
+        date = new Date(req.body.leave.from);
+        todate = new Date(req.body.leave.to);
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        dt = date.getDate();
+        todt = todate.getDate();
 
-        // Calculate number of days for the first month
-        const daysInFirstMonth = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1, 0).getDate() - fromDate.getDate() + 1;
-        
-        // Calculate number of days for the last month
-        const daysInLastMonth = toDate.getDate();
-
-        // Calculate number of days in between
-        const daysInBetween = Math.max(0, Math.ceil((toDate - fromDate - (daysInFirstMonth - 1) * 24 * 60 * 60 * 1000) / (1000 * 60 * 60 * 24)));
-
-        const totalDays = daysInFirstMonth + daysInBetween + daysInLastMonth - 1;
-
-        req.body.leave.days = totalDays;
-
+        if (dt < 10) {
+          dt = "0" + dt;
+        }
+        if (month < 10) {
+          month = "0" + month;
+        }
+        if()
+        console.log(todt - dt);
+        req.body.leave.days = todt - dt;
+        console.log(year + "-" + month + "-" + dt);
+        console.log(req.body.leave);
         Leave.create(req.body.leave, (err, newLeave) => {
           if (err) {
             req.flash("error", "Something went wrong");
@@ -458,12 +461,11 @@ app.post("/student/:id/apply", (req, res) => {
             newLeave.stud.id = req.user._id;
             newLeave.stud.username = req.user.username;
             console.log("leave is applied by--" + req.user.username);
-
             newLeave.save();
 
             student.leaves.push(newLeave);
-            student.save();
 
+            student.save();
             req.flash("success", "Successfully applied for leave");
             res.render("homestud", { student: student, moment: moment });
           }
@@ -471,6 +473,7 @@ app.post("/student/:id/apply", (req, res) => {
       }
     });
 });
+
 
 
 
@@ -604,92 +607,27 @@ app.get("/hod/:id/leave", (req, res) => {
   });
 });
 
-// app.get("/hod/:id/leave/:stud_id/info", (req, res) => {
-//   Hod.findById(req.params.id).exec((err, hodFound) => {
-//     if (err) {
-//       req.flash("error", "hod not found with requested id");
-//       res.redirect("back");
-//      } else {
-//       Student.findById(req.params.stud_id)
-//         .populate("leaves")
-//         .exec((err, foundStudent) => {
-//           if (err) {
-//             req.flash("error", "student not found with this id");
-//             res.redirect("back");
-//           } else {
-//             res.render("moreinfostud", {
-//               student: foundStudent,
-//               hod: hodFound,
-//               moment: moment
-//             });
-//           }
-//         });
-//     }
-//   });
-// });
-
-// app.post("/hod/:id/leave/:stud_id", (req, res) => {
-//   Hod.findById(req.params.id).exec((err, hodFound) => {
-//     if (err) {
-//       req.flash("error", "hod not found with requested id");
-//       res.redirect("back");
-//     } else {
-//       Student.findById(req.params.stud_id)
-//         .populate("leaves")
-//         .exec((err, foundStudent) => {
-//           if (err) {
-//             req.flash("error", "student not found with this id");
-//             res.redirect("back");
-//           } else {
-//             if (req.body.action === "Approve") {
-//               foundStudent.leaves.forEach(function(leave) {
-//                 if (leave.status === "pending") {
-//                   leave.status = "approved";
-//                   leave.approved = true;
-//                   leave.save();
-//                 }
-//               });
-//             } else {
-//               console.log("You Denied");
-//               foundStudent.leaves.forEach(function(leave) {
-//                 if (leave.status === "pending") {
-//                   leave.status = "denied";
-//                   leave.denied = true;
-//                   leave.save();
-//                 }
-//               });
-//             }
-//             res.render("moreinfostud", {
-//               student: foundStudent,
-//               hod: hodFound,
-//               moment: moment
-//             });
-//           }
-//         });
-//     }
-//   });
-// });
-app.get("/hod/:id/leave/:stud_id", (req, res) => {
-  Hod.findById(req.params.id, (err, hodFound) => {
-    if (err || !hodFound) {
-      req.flash("error", "HOD not found with the requested ID");
-      return res.redirect("back");
+app.get("/hod/:id/leave/:stud_id/info", (req, res) => {
+  Hod.findById(req.params.id).exec((err, hodFound) => {
+    if (err) {
+      req.flash("error", "hod not found with requested id");
+      res.redirect("back");
+     } else {
+      Student.findById(req.params.stud_id)
+        .populate("leaves")
+        .exec((err, foundStudent) => {
+          if (err) {
+            req.flash("error", "student not found with this id");
+            res.redirect("back");
+          } else {
+            console.log(student);
+          }
+        });
     }
-
-    Student.findById(req.params.stud_id)
-      .populate("leaves")
-      .exec((err, foundStudent) => {
-        if (err || !foundStudent) {
-          req.flash("error", "Student not found with this ID");
-          return res.redirect("back");
-        }
-        
-        res.render("hodLeaveSign", { student: foundStudent, hod: hodFound, moment: moment });
-      });
   });
 });
 
-app.post("/hod/:id/leave/:stud_id", (req, res) => {
+app.post("/hod/:id/leave/:stud_id/info", (req, res) => {
   Hod.findById(req.params.id).exec((err, hodFound) => {
     if (err) {
       req.flash("error", "hod not found with requested id");
@@ -711,7 +649,7 @@ app.post("/hod/:id/leave/:stud_id", (req, res) => {
                 }
               });
             } else {
-              console.log("You Denied the Request");
+              console.log("You Denied");
               foundStudent.leaves.forEach(function(leave) {
                 if (leave.status === "pending") {
                   leave.status = "denied";
@@ -726,7 +664,6 @@ app.post("/hod/:id/leave/:stud_id", (req, res) => {
   });
 });
 
- 
 
 
 app.get("/warden/login", (req, res) => {
